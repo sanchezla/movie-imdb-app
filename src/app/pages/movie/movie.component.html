@@ -1,0 +1,28 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <button class="btn-category" (click)="getPopularityMovies()">Populares</button>
+                    <button class="btn-category">Niños</button>
+                    <button class="btn-category" (click)="getUpcomingMovies()">Nuevo</button>
+                </div>
+            </div>
+            <div class="row d-flex ">
+    
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let movie of movies">
+                    <mat-card class="card" *ngIf="movie.poster_path !== null">
+                        <img mat-card-xl-image src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" alt="{{movie.title}}">
+                        <mat-card-title>
+                            {{movie.title}}
+                        </mat-card-title>
+                        <mat-card-content>
+                            <p>{{movie.release_date | date: 'mediumDate'}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

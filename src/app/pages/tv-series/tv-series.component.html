@@ -1,0 +1,29 @@
+<div class="main-content">
+    <div class="container-fluid">
+    
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <button class="btn-category" (click)="getPopularTvShows($event)">Populares</button>
+                    <button class="btn-category">Niños</button>
+                    <button class="btn-category" (click)="geTopRatedTvShows()">Más votados</button>
+                </div>
+            </div>
+            <div class="row d-flex ">
+
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let tv of listTvShows">
+                    <mat-card class="card" *ngIf="tv.poster_path !== null">
+                        <img mat-card-xl-image src="https://image.tmdb.org/t/p/w300/{{tv.poster_path}}" alt="{{tv.name}}">
+                        <mat-card-title>
+                            {{tv.name}}
+                        </mat-card-title>
+                        <mat-card-content>
+                            <p>{{tv.first_air_date | date: 'mediumDate'}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>

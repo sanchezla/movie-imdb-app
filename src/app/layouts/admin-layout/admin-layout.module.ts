@@ -13,7 +13,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { MovieComponent } from '../../pages/movie/movie.component';
 import { TvSeriesComponent } from '../../pages/tv-series/tv-series.component';
 import { HomeComponent } from '../../pages/home/home.component';
-import { MaterialModule } from '../../modules/material/material.module';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { MaterialModule } from '../../modules/material/material.module';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MatSelectModule
   ],
   declarations: [
     DashboardComponent,

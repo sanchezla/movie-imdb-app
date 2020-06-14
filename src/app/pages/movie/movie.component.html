@@ -1,28 +1,40 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <button class="btn-category" (click)="getPopularityMovies()">Populares</button>
-                    <button class="btn-category">Niños</button>
-                    <button class="btn-category" (click)="getUpcomingMovies()">Nuevo</button>
-                </div>
+        <div class="spinner-border text-primary" role="status" *ngIf="movies.length === 0">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="row text-center" *ngIf="movies.length > 0">
+            <div class="col-12">
+                <button class="btn-category" (click)="getPopularityMovies()">Populares</button>
+                <button class="btn-category">Niños</button>
+                <button class="btn-category" (click)="getUpcomingMovies()">Nuevo</button>
             </div>
-            <div class="row d-flex ">
-    
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let movie of movies">
-                    <mat-card class="card" *ngIf="movie.poster_path !== null">
-                        <img mat-card-xl-image src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" alt="{{movie.title}}">
-                        <mat-card-title>
-                            {{movie.title}}
-                        </mat-card-title>
-                        <mat-card-content>
-                            <p>{{movie.release_date | date: 'mediumDate'}}</p>
-                        </mat-card-content>
-                    </mat-card>
+        </div>
+        <div class="row select-cast">
+            <div class="col-10"></div>
+            <div class="col-2" *ngIf="movies.length > 0">
+                <mat-form-field>
+                    <mat-label>View more movies: </mat-label>
+                    <mat-select [(ngModel)]="viewCount" (ngModelChange)="changeViewMovie();">
+                      <mat-option [value]="8">8</mat-option>
+                      <mat-option [value]="16">16</mat-option>
+                      <mat-option [value]="24">24</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3" *ngFor="let movie of movies">
+                <div class="card card-stats mouse-over " [routerLink]="['/movies-details/', movie.id]">
+                    <img src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" alt="{{movie.title}}">
+                    <div class="card-header">
+                        <h4 class="card-title"> {{movie.title}}</h4>
                     </div>
+                    <div class="card-body">
+                        <p>{{movie.release_date | date: 'mediumDate'}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
 </div>

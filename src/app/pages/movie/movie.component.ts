@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../services/movie.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie',
@@ -9,8 +10,10 @@ import { MovieService } from '../../services/movie.service';
 export class MovieComponent implements OnInit {
 
   public movies: any[] = [];
+  public moviesStorage: any[] = [];
   public yearsMovies: any[] = [];
   public years: any = null;
+  public viewCount = 8;
 
   constructor(protected movieService: MovieService) { }
 
@@ -18,31 +21,49 @@ export class MovieComponent implements OnInit {
 
     this.getPopularityMovies();
     this.getUpcomingMovies();
-    // this.getPopularTvShows();
 
+  }
+
+  public changeViewMovie() {
+    this.movies = this.moviesStorage.slice(0, this.viewCount);
   }
 
   getPopularityMovies() {
-    this.movieService.getPopularMovies().subscribe(
-      (data) => {
-        this.movies =  data.results;
-        // console.log(data);
-      });
+    this.movieService.getPopularMovies()
+    .pipe(
+      take(1)
+    ).subscribe(
+      (movies) => {
+        setTimeout(() =>{
+          this.moviesStorage = movies.results;
+          this.movies = movies.results.slice(0, this.viewCount);
+        },1500);
+      
+    },
+    err => {
+      console.log(err);
+    },
+    () => {
+      // petición finalizada);
+    });
   }
 
   getUpcomingMovies() {
-    this.movieService.getUpcomingMovies().subscribe(
-      (data) => {
-        this.movies =  data.results;
-        // console.log(data);
-      });
-  }
-
-  getMoviesByYear(year) {
-    this.movieService.getMoviesByYear(year).subscribe(
-      (data) => {
-        this.movies = data.results;
-        // console.log(this.yearsMovies);
+    this.movieService.getUpcomingMovies().pipe(
+      take(1)
+    ).subscribe(
+      (movies) => {
+        setTimeout(() =>{
+          this.moviesStorage = movies.results;
+          this.movies = movies.results.slice(0, this.viewCount);
+        },1500);
+      
+    },
+    err => {
+      console.log(err);
+    },
+    () => {
+      // petición finalizada);
     });
   }
 

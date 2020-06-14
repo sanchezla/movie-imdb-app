@@ -87,6 +87,22 @@ export class MovieService {
   
     return this.http.get<any>(`${url}`, {params});
   }
+
+  getMovieCreditsById(id: number): Observable<any> {
+    const params = new HttpParams()
+    .set('api_key', environment.api_key)
+    .set('lenguage', 'en-US');
+    const url = `${environment.api}/movie/${id}/credits`;
+    return this.http.get<any>(`${url}`, {params});
+  }
+
+  getMovieDetailsById(id: number): Observable<any> {
+    const params = new HttpParams()
+    .set('api_key', environment.api_key)
+    .set('lenguage', 'en-US');
+    const url = `${environment.api}/movie/${id}`;
+    return this.http.get<any>(`${url}`, {params});
+  }
   
   private handleError(res: HttpErrorResponse | any) {
     console.error(res.error || res.body.error);

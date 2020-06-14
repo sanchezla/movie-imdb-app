@@ -1,0 +1,60 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-3">
+                <a class="btn btn-primary pull-right back-btn" 
+                    [routerLink]="'/movies'"
+                    ngbTooltip="Regresar">
+                    <i class="fas fa-undo"></i>
+                </a>
+            </div>
+        </div>
+        
+       
+        <div class="col-12 text-center">
+            <img class="img-backgrund" 
+                src="https://image.tmdb.org/t/p/w780/{{movieDetails.backdrop_path}}" 
+                alt="{{movieDetails.title}}">   
+        </div>
+    
+        <div class="row">
+            <div class="container-fluid">
+                <div class="row select-cast">
+                    <div class="col-11">
+                        <h3> Movie Cast</h3>
+                    </div>
+                    <div class="col-1 pull-right" *ngIf="movieCredits.length > 0">
+                        <mat-form-field>
+                            <mat-label>View more cast: </mat-label>
+                            <mat-select [(ngModel)]="viewCount" (ngModelChange)="changeViewMovie();">
+                              <mat-option [value]="5">5</mat-option>
+                              <mat-option [value]="9">9</mat-option>
+                              <mat-option [value]="15">15</mat-option>
+                              <mat-option [value]="20">20</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12 col-md-3 col-lg-2 col-xl-2" 
+                    *ngFor="let actor of movieCredits">
+                        <div class="card" >
+                            <img class="img-cast" 
+                                src="https://image.tmdb.org/t/p/w300/{{actor.profile_path}}" 
+                                alt="{{actor.name}}" >
+                            <div class="card-header">
+                                <h4 class="card-title">{{actor.character}}</h4>
+                                <p class="card-category">{{actor.name}}</p>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+                <div class="spinner-border text-primary" role="status" *ngIf="movieCredits.length === 0">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
